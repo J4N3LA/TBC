@@ -5,7 +5,6 @@ provider "aws" {
 
 resource "aws_instance" "webserver1" {
     ami = var.ami_id
-    iam_instance_profile = aws_iam_instance_profile.ec2_instance_profile.name
     instance_type = "t2.micro"
     user_data_replace_on_change = true
     key_name = var.key
@@ -32,7 +31,6 @@ resource "aws_instance" "webserver1" {
 resource "aws_instance" "webserver2" {
     ami = var.ami_id
     instance_type = "t2.micro"
-    iam_instance_profile = aws_iam_instance_profile.ec2_instance_profile.name
     key_name = var.key
     user_data_replace_on_change = true
     user_data = <<-EOF
