@@ -1,13 +1,5 @@
 # 📦 TBC პრაქტიკული დავალება
 
-
-## 📚 სარჩევი
-
-- [Architecture](#architecture)
-- [Infrastructure Details](#Infrastructure)
-- [Variables](#variables)
-
-
 ## 🏗️ Architecture
 
 - Diagram 
@@ -125,7 +117,4 @@
     }
   }
   ```  
-  
-- 1x CloudFront distribution
 
-- Security Groups 
