@@ -3,5 +3,8 @@ ec2-key.pem
 .terraform/
 terraform.tfstate
 terraform.tfstate.backup
+.terraform.tfstate.lock.info
+
+
 
 

@@ -11,12 +11,12 @@ resource "aws_instance" "webserver1" {
     user_data = <<-EOF
               #!/bin/bash
               set -x
-              exec > /var/log/user-data.log 2>&1v
+              exec > /var/log/user-data.log 2>&1
               apt update -y
               apt install -y apache2
               mkdir -p /var/www/html
               echo "<html><body><h1>Web1</h1>
-              <img src='https://${var.bucket_name}.s3.amazonaws.com/image.jpg' width="300" >
+              <img src='https://${aws_cloudfront_distribution.cdn.domain_name}/image.jpg' width='300' >
               </body></html>" | tee /var/www/html/index.html > /dev/null
               chown www-data:www-data /var/www/html/index.html
               systemctl enable apache2
@@ -36,12 +36,12 @@ resource "aws_instance" "webserver2" {
     user_data = <<-EOF
               #!/bin/bash
               set -x
-              exec > /var/log/user-data.log 2>&1v
+              exec > /var/log/user-data.log 2>&1
               apt update -y
               apt install -y apache2
               mkdir -p /var/www/html
               echo "<html><body><h1>Web2</h1>
-              <img src='https://${var.bucket_name}.s3.amazonaws.com/image.jpg' width="300" >
+              <img src='https://${aws_cloudfront_distribution.cdn.domain_name}/image.jpg' width='300' >
               </body></html>" | tee /var/www/html/index.html > /dev/null
               chown www-data:www-data /var/www/html/index.html
               systemctl enable apache2
