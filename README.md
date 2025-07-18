@@ -22,7 +22,8 @@
 
 - main.tf
   ქმნის ec2 რესურსებს, რომლების user_data პარამეტრის დახმარებით კონტეინერში აინსტალირებენ და სტარტავენ apache2 სერვისს და აგენერირებენ index.html ფაილს.
-  '''    user_data = <<-EOF
+  ```
+  user_data = <<-EOF
               #!/bin/bash
               set -x
               exec > /var/log/user-data.log 2>&1
