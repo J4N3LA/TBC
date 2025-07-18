@@ -1,4 +1,19 @@
 # 📦 TBC პრაქტიკული დავალება
+- Terraform apply შედეგი:
+  ```
+  Apply complete! Resources: 8 added, 0 changed, 0 destroyed.
+
+    Outputs:
+
+    cloudfront_url = "https://d1051ta2qfdury.cloudfront.net"
+    elastic_ip = "54.197.84.53"
+    s3_url = "https://buckettbc1234.s3.amazonaws.com/photo.jpg"
+    webserver1_ip = "54.144.78.4"
+    webserver2_ip = "54.172.108.57"
+  ```
+- ვებსერვერთან კავშირის დამყარება ElasticIP-ით, სურათის წყაროს შემოწმება.
+![Alt text][test.png]
+
 
 ## 🏗️ Architecture
 
