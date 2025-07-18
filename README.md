@@ -4,7 +4,7 @@
 ## 📚 სარჩევი
 
 - [Architecture](#architecture)
-- [Infrastructure](#Infrastructure Details)
+- [Infrastructure Details](#Infrastructure)
 - [Variables](#variables)
 
 
