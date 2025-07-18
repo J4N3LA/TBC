@@ -11,7 +11,7 @@ output "elastic_ip" {
 }
 
 output "s3_url" {
-  value = "https://${var.bucket_name}.s3.amazonaws.com/photo.jpg"
+  value = "https://${var.bucket_name}.s3.amazonaws.com/image.jpg"
 }
 
 output "cloudfront_url" {
