@@ -11,32 +11,39 @@ resource "aws_s3_object" "photo" {
 }
 
 
-
-
-resource "aws_s3_bucket_public_access_block" "no_block" {
-  bucket = aws_s3_bucket.photo_bucket.id
-
-  block_public_acls       = false
-  block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
+resource "aws_cloudfront_origin_access_control" "oac" {
+  name                              = "cdn-oac"
+  description                       = "OAC for private S3 access"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
 }
 
-resource "aws_s3_bucket_policy" "public_read" {
+
+resource "aws_s3_bucket_policy" "allow_cloudfront" {
   bucket = aws_s3_bucket.photo_bucket.id
 
   policy = jsonencode({
-    Version = "2012-10-17"
+    Version = "2012-10-17",
     Statement = [
       {
-        Sid       = "PublicReadGetObject"
-        Effect    = "Allow"
-        Principal = "*"
-        Action    = "s3:GetObject"
-        Resource  = "arn:aws:s3:::${aws_s3_bucket.photo_bucket.id}/*"
+        Sid       = "AllowCloudFrontRead",
+        Effect    = "Allow",
+        Principal = {
+          Service = "cloudfront.amazonaws.com"
+        },
+        Action    = "s3:GetObject",
+        Resource  = "arn:aws:s3:::${aws_s3_bucket.photo_bucket.id}/*",
+        Condition = {
+          StringEquals = {
+            "AWS:SourceArn" = aws_cloudfront_distribution.cdn.arn
+          }
+        }
       }
     ]
   })
+
+  depends_on = [aws_cloudfront_distribution.cdn]
 }
 
 

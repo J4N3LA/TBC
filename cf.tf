@@ -1,10 +1,13 @@
 resource "aws_cloudfront_distribution" "cdn" {
     origin {
-        domain_name = "${var.bucket_name}.s3.amazonaws.com"
+        #domain_name = "${var.bucket_name}.s3.amazonaws.com"
+        domain_name = aws_s3_bucket.photo_bucket.bucket_regional_domain_name
+
         origin_id = "s3-origin"
         s3_origin_config {
             origin_access_identity = ""
             }
+            origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
         }
 
     enabled = true
