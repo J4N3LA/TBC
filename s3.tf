@@ -11,14 +11,6 @@ resource "aws_s3_object" "photo" {
 }
 
 
-resource "aws_cloudfront_origin_access_control" "oac" {
-  name                              = "cdn-oac"
-  description                       = "OAC for private S3 access"
-  origin_access_control_origin_type = "s3"
-  signing_behavior                  = "always"
-  signing_protocol                  = "sigv4"
-}
-
 
 resource "aws_s3_bucket_policy" "allow_cloudfront" {
   bucket = aws_s3_bucket.photo_bucket.id

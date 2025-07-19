@@ -1,3 +1,11 @@
+resource "aws_cloudfront_origin_access_control" "oac" {
+  name                              = "cdn-oac"
+  description                       = "OAC for private S3 access"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
+}
+
 resource "aws_cloudfront_distribution" "cdn" {
     origin {
         #domain_name = "${var.bucket_name}.s3.amazonaws.com"
