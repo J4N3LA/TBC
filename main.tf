@@ -14,7 +14,6 @@ resource "aws_instance" "webserver1" {
               exec > /var/log/user-data.log 2>&1
               apt update -y
               apt install -y apache2
-              mkdir -p /var/www/html
               echo "<html><body><h1>Web1</h1>
               <img src='https://${aws_cloudfront_distribution.cdn.domain_name}/image.jpg' width='300' >
               </body></html>" | tee /var/www/html/index.html > /dev/null
@@ -39,7 +38,6 @@ resource "aws_instance" "webserver2" {
               exec > /var/log/user-data.log 2>&1
               apt update -y
               apt install -y apache2
-              mkdir -p /var/www/html
               echo "<html><body><h1>Web2</h1>
               <img src='https://${aws_cloudfront_distribution.cdn.domain_name}/image.jpg' width='300' >
               </body></html>" | tee /var/www/html/index.html > /dev/null
