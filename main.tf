@@ -21,6 +21,12 @@ resource "aws_instance" "webserver1" {
               chown www-data:www-data /var/www/html/index.html
               systemctl enable apache2
               systemctl start apache2
+
+              sudo apt install -y pcs pacemaker corosync resource-agents awscli
+              echo hacluster:password123 | chpasswd
+              systemctl enable pcsd
+              systemctl start pcsd
+              pcs auth webserver1 webserver2 -u hacluster -p password123
               EOF
 
     tags = {
@@ -46,6 +52,12 @@ resource "aws_instance" "webserver2" {
               chown www-data:www-data /var/www/html/index.html
               systemctl enable apache2
               systemctl start apache2
+
+              sudo apt install -y pcs pacemaker corosync resource-agents awscli
+              echo hacluster:password123 | chpasswd
+              systemctl enable pcsd
+              systemctl start pcsd
+              pcs auth webserver1 webserver2 -u hacluster -p password123
               EOF
 
 
@@ -54,6 +66,17 @@ resource "aws_instance" "webserver2" {
     }
 }
 
-resource "aws_eip" "web_ip" {
-    instance = aws_instance.webserver1.id
+#resource "aws_eip" "web_ip" {
+#    instance = aws_instance.webserver1.id
+#}
+
+resource "aws_eip" "vip" {
+  tags = {
+    Name = "VirtualIP"
+  }
 }
+output "vip" {
+  value = aws_eip.vip.public_ip
+}
+
+
